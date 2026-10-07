@@ -70,6 +70,25 @@ class HashMap {
         }
         return false;
     }
+
+    remove(key) {
+        const index = this.hash(key);
+
+        if (index < 0 || index >= this.buckets.length) {
+            throw new Error("Trying to access index out of bounds");
+        }
+
+        const bucket = this.buckets[index];
+
+        for (let i = 0; i < bucket.length; i++) {
+            if (bucket[i][0] === key) {
+                bucket.splice(i, 1);
+                this.entryCount -= 1;
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 const hashtest = new HashMap();
@@ -78,10 +97,15 @@ hashtest.set("a", "red");
 hashtest.set("ab", "blue");
 hashtest.set("a", "green");
 hashtest.set("ab", "yellow");
-console.log(hashtest.has("a"));
-console.log(hashtest.has("ab"));
-console.log(hashtest.has("q"));
-console.log(hashtest.has("b"));
 hashtest.set("q", undefined);
-console.log(hashtest.get("q"));
-console.log(hashtest.has("q"));
+console.log(hashtest.entryCount);
+console.log(hashtest.remove("ab"));
+console.log(hashtest.entryCount);
+console.log(hashtest.remove("ab"));
+console.log(hashtest.entryCount);
+console.log(hashtest.remove("a"));
+console.log(hashtest.entryCount);
+console.log(hashtest.remove("q"));
+console.log(hashtest.entryCount);
+console.log(hashtest.remove("b"));
+console.log(hashtest.entryCount);
