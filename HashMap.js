@@ -89,23 +89,36 @@ class HashMap {
         }
         return false;
     }
+
+    length() {
+        return this.entryCount;
+    }
+
+    clear() {
+        this.buckets = [];
+        for (let i = 0; i < this.capacity; i++) {
+            this.buckets.push([]);
+        }
+        this.entryCount = 0;
+    }
 }
 
 const hashtest = new HashMap();
 
-hashtest.set("a", "red");
-hashtest.set("ab", "blue");
 hashtest.set("a", "green");
 hashtest.set("ab", "yellow");
-hashtest.set("q", undefined);
-console.log(hashtest.entryCount);
-console.log(hashtest.remove("ab"));
-console.log(hashtest.entryCount);
-console.log(hashtest.remove("ab"));
-console.log(hashtest.entryCount);
-console.log(hashtest.remove("a"));
-console.log(hashtest.entryCount);
-console.log(hashtest.remove("q"));
-console.log(hashtest.entryCount);
-console.log(hashtest.remove("b"));
-console.log(hashtest.entryCount);
+console.log(hashtest.length());
+hashtest.clear();
+console.log(hashtest.length());
+console.log(hashtest.get("a"));
+console.log(hashtest.has("ab"));
+console.log(hashtest.capacity);
+console.log(hashtest.loadFactor);
+console.log(hashtest.buckets.length === hashtest.capacity);
+console.log(hashtest.buckets);
+console.log(hashtest.buckets[0] === hashtest.buckets[1]);
+hashtest.clear();
+console.log(hashtest.length());
+hashtest.set("b", "brown");
+console.log(hashtest.get("b"));
+console.log(hashtest.length());
