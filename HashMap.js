@@ -134,23 +134,29 @@ class HashMap {
         }
         return result;
     }
+
+    resize() {
+        const saved = this.entries();
+        this.capacity *= 2;
+        this.clear();
+
+        for (const entry of saved) {
+            this.set(entry[0], entry[1]);
+        }
+    }
 }
 
 const hashtest = new HashMap();
 
-console.log(hashtest.entries());
 hashtest.set("a", "green");
 hashtest.set("ab", "yellow");
-hashtest.set("b", "brown");
-console.log(hashtest.entries());
-hashtest.set("a", "black");
-console.log(hashtest.entries());
-hashtest.remove("ab");
-console.log(hashtest.entries());
-const saved = hashtest.entries();
-saved[0][1] = "changed";
-console.log(saved);
-console.log(hashtest.get("a"));
+hashtest.set("q", "purple");
+hashtest.resize();
+console.log(hashtest.capacity);
+console.log(hashtest.buckets.length);
 console.log(hashtest.length());
-hashtest.clear();
+console.log(hashtest.get("a"));
+console.log(hashtest.get("ab"));
+console.log(hashtest.get("q"));
+console.log(hashtest.hash("q"));
 console.log(hashtest.entries());
