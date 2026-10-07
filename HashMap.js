@@ -35,6 +35,11 @@ class HashMap {
         }
         bucket.push([key, value]);
         this.entryCount += 1;
+        const currentLoad = this.entryCount / this.capacity;
+        if (currentLoad > this.loadFactor) {
+            this.resize();
+            return;
+        }
     }
 
     get(key) {
@@ -146,17 +151,63 @@ class HashMap {
     }
 }
 
-const hashtest = new HashMap();
+const test = new HashMap();
 
-hashtest.set("a", "green");
-hashtest.set("ab", "yellow");
-hashtest.set("q", "purple");
-hashtest.resize();
-console.log(hashtest.capacity);
-console.log(hashtest.buckets.length);
-console.log(hashtest.length());
-console.log(hashtest.get("a"));
-console.log(hashtest.get("ab"));
-console.log(hashtest.get("q"));
-console.log(hashtest.hash("q"));
-console.log(hashtest.entries());
+test.set('apple', 'red')
+test.set('banana', 'yellow')
+test.set('carrot', 'orange')
+test.set('dog', 'brown')
+test.set('elephant', 'gray')
+test.set('frog', 'green')
+test.set('grape', 'purple')
+test.set('hat', 'black')
+test.set('ice cream', 'white')
+test.set('jacket', 'blue')
+test.set('kite', 'pink')
+console.log(test.length());
+console.log(test.capacity);
+test.set('lion', 'golden');
+console.log(test.length());
+console.log(test.capacity);
+test.set('apple', 'crimson');
+console.log(test.length());
+console.log(test.capacity);
+const savedEntries = test.entries();
+test.set('moon', 'silver');
+for (const pair of savedEntries) {
+    console.log(test.get(pair[0]) === pair[1]);
+}
+console.log(test.buckets.length);
+console.log(test.length());
+console.log(test.capacity);
+test.set('moon', 'gray');
+console.log(test.length());
+console.log(test.capacity);
+console.log(test.has("moon"));
+console.log(test.has("not-stored"));
+console.log(test.remove("moon"));
+console.log(test.length());
+console.log(test.has("moon"));
+console.log(test.get("moon"));
+console.log(test.remove("moon"));
+console.log(test.length());
+console.log(test.keys());
+console.log(test.values());
+console.log(test.entries());
+test.clear();
+console.log(test.length());
+console.log(test.keys());
+console.log(test.values());
+console.log(test.entries());
+console.log(test.capacity);
+console.log(test.buckets.length);
+test.set("q", "purple");
+console.log(test.length());
+console.log(test.get("q"));
+console.log(test.has("q"));
+console.log(test.hash("q"));
+console.log(test.capacity);
+test.set("q", undefined);
+console.log(test.get("q"));
+console.log(test.has("q"));
+
