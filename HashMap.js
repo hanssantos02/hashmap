@@ -101,24 +101,29 @@ class HashMap {
         }
         this.entryCount = 0;
     }
+
+    keys() {
+        const result = [];
+
+        for (const bucket of this.buckets) {
+            for (const pair of bucket) {
+                result.push(pair[0]);
+            }
+        }
+        return result;
+    }
 }
 
 const hashtest = new HashMap();
 
+console.log(hashtest.keys());
+hashtest.set("b", "brown");
 hashtest.set("a", "green");
 hashtest.set("ab", "yellow");
-console.log(hashtest.length());
+console.log(hashtest.keys());
+hashtest.set("a", "black");
+console.log(hashtest.keys());
+hashtest.remove("ab");
+console.log(hashtest.keys());
 hashtest.clear();
-console.log(hashtest.length());
-console.log(hashtest.get("a"));
-console.log(hashtest.has("ab"));
-console.log(hashtest.capacity);
-console.log(hashtest.loadFactor);
-console.log(hashtest.buckets.length === hashtest.capacity);
-console.log(hashtest.buckets);
-console.log(hashtest.buckets[0] === hashtest.buckets[1]);
-hashtest.clear();
-console.log(hashtest.length());
-hashtest.set("b", "brown");
-console.log(hashtest.get("b"));
-console.log(hashtest.length());
+console.log(hashtest.keys());
